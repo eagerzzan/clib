@@ -4,15 +4,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define ELEMENT_TYPE int
+#define INCREMENT_SIZE 10
+
 typedef struct _DYN_ARRAY
 {
-	int *array;
+	ELEMENT_TYPE *array;
 	size_t used;
 	size_t size;
 } DYN_ARRAY;
-
-#define ELEMENT_TYPE int
-#define INCREMENT_SIZE 10
 
 DYN_ARRAY* da_initialize(int init_size)
 {
@@ -70,13 +70,5 @@ void da_delete(DYN_ARRAY *pa, int idx)
 	pa->used--;
 }
 
-void da_print_element(DYN_ARRAY *pa)
-{
-	int idx;
-
-	for (idx = 0; idx < pa->size; idx++)
-	{
-		printf("Dynarray[%d] : %d\n", idx, pa->array[idx]);
-	}
-}
+/* end of file */
 
