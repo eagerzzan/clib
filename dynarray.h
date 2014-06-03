@@ -6,6 +6,9 @@
  * @email		makeitafridaynight@gmail.com
  ******************************************************************************/
 
+#ifndef _DYN_ARRAY_H
+#define _DYN_ARRAY_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -75,6 +78,8 @@ void da_delete(DYN_ARRAY *pa, int idx)
 			(pa->used - idx - 1) * sizeof(ELEMENT_TYPE));
 	pa->used--;
 }
+
+#endif
 
 /* end of file */
 
