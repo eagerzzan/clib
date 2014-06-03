@@ -1,4 +1,10 @@
-/* dynarray.h dyanamic array */
+/*******************************************************************************
+ * dynarray.h
+ * dyanamic array
+ *
+ * @author		Theo Seo
+ * @email		makeitafridaynight@gmail.com
+ ******************************************************************************/
 
 #include <stdio.h>
 #include <stdlib.h>
