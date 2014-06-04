@@ -82,7 +82,7 @@ int q_enqueue(QUEUE *p_q, ELEMENT_TYPE a)
 	}
 }
 
-int q_dequeue(QUEUE *p_q, ELEMENT_TYPE *p_a)
+int q_peek(QUEUE *p_q, ELEMENT_TYPE *p_a)
 {
 	if (p_q == NULL || p_a == NULL) return -1;
 
@@ -90,12 +90,23 @@ int q_dequeue(QUEUE *p_q, ELEMENT_TYPE *p_a)
 	else
 	{
 		*p_a = p_q->p_data[p_q->front];
+
+		return 0;
+	}
+}
+
+int q_dequeue(QUEUE *p_q, ELEMENT_TYPE *p_a)
+{
+	if (q_peek(p_q, p_a) != 0) return -1;
+	else
+	{
 		p_q->p_data[p_q->front] = 0;
 		p_q->front = ++p_q->front % p_q->size;
 
 		return 0;
-	}	
+	}
 }
+
 
 #endif
 
