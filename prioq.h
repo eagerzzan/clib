@@ -13,10 +13,12 @@
 #include <string.h>
 #include <limits.h>
 
+#define ELEMENT_TYPE int
+
 typedef struct _HEAP_NODE
 {
 	int key;
-	int data;
+	ELEMENT_TYPE data;
 } HEAP_NODE;
 
 typedef struct _ARRAY_HEAP
