@@ -77,11 +77,11 @@ void sll_print_node(SLL_NODE *p_head)
 		printf("List Search : %d\n", p_tmp->data);
 		p_tmp = p_tmp->p_next;
 	}
-	#ifdef DISABLE_CIRCULAR_LIST
+#ifdef DISABLE_CIRCULAR_LIST
 	while (p_tmp);
-	#else
+#else
 	while (p_tmp != p_head);
-	#endif
+#endif
 }
 
 void sll_destruct(SLL_NODE **pp_head)
@@ -92,18 +92,18 @@ void sll_destruct(SLL_NODE **pp_head)
 
 	p_tmp = (*pp_head)->p_next;
 
-	#ifdef DISABLE_CIRCULAR_LIST
+#ifdef DISABLE_CIRCULAR_LIST
 	while (p_tmp)
-	#else
-	while (p_tmp != *pp_head)
-	#endif
-	{
-		p_cur = p_tmp;
-		p_tmp = p_cur->p_next;
+#else
+		while (p_tmp != *pp_head)
+#endif
+		{
+			p_cur = p_tmp;
+			p_tmp = p_cur->p_next;
 
-		printf("Release : %p\n", p_cur);
-		free(p_cur);
-	}
+			printf("Release : %p\n", p_cur);
+			free(p_cur);
+		}
 
 	printf("Release : %p\n", *pp_head);
 	free(*pp_head);
