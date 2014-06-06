@@ -80,6 +80,8 @@ void dll_insert(DLL_LIST *p_list, DLL_NODE *p_prev, DLL_NODE *p_new)
 		p_new->p_prev = p_prev;
 		p_prev->p_next = p_new;
 	}
+
+	p_list->cnt++;
 }
 
 void dll_delete(DLL_LIST *p_list, DLL_NODE *p_del)
@@ -98,6 +100,8 @@ void dll_delete(DLL_LIST *p_list, DLL_NODE *p_del)
 	}
 
 	free(p_del);
+
+	p_list->cnt--;
 }
 
 DLL_NODE* dll_search_forward(DLL_LIST *p_list, ELEMENT_TYPE condition)
