@@ -89,6 +89,8 @@ void sll_insert(SLL_LIST *p_list, SLL_NODE *p_prev, SLL_NODE *p_new)
 		p_new->p_next = p_prev->p_next;
 		p_prev->p_next = p_new;
 	}
+
+	p_list->cnt++;
 }
 
 void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev)
@@ -102,7 +104,7 @@ void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev)
 	if (p_prev == NULL)
 	{
 		p_del = p_list->p_head;
-		p_list->p_head = p_head->p_next;
+		p_list->p_head = p_list->p_head->p_next;
 	}
 	else
 	{
@@ -127,6 +129,8 @@ void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev)
 
 	printf("Delete : %p\n", p_del);
 	free(p_del);
+
+	p_list->cnt--;
 }
 
 void sll_print_list(SLL_LIST *p_list)
