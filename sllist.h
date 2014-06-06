@@ -21,11 +21,21 @@ typedef struct _SLL_NODE
 	struct _SLL_NODE *p_next;
 } SLL_NODE;
 
-void sll_make_node(SLL_NODE **pp_node, ELEMENT_TYPE data);
-void sll_insert_node(SLL_NODE *p_prev, SLL_NODE *p_new);
-void sll_delete_node(SLL_NODE **p_head, SLL_NODE *p_prev);
-void sll_print_node(SLL_NODE *p_head);
-void sll_destruct(SLL_NODE **pp_head);
+typedef struct _SLL_LIST
+{
+	SLL_NODE *p_head;
+	unsigned int cnt;
+} SLL_LIST;
+
+SLL_LIST* sll_create(void);
+void sll_destroy(SLL_LIST **pp_list);
+
+SLL_NODE* sll_make_node(ELEMENT_TYPE data);
+
+void sll_insert(SLL_LIST *p_list, SLL_NODE *p_prev, SLL_NODE *p_new);
+void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev);
+
+void sll_print_list(SLL_LIST *p_list);
 
 #endif
 
