@@ -7,6 +7,9 @@
  ******************************************************************************/
 
 #include "queue.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 QUEUE* q_initialize(int init_size)
 {

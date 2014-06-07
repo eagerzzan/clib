@@ -9,10 +9,6 @@
 #ifndef _QUEUE_H
 #define _QUEUE_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
 #define ELEMENT_TYPE int
 
 typedef struct _QUEUE
