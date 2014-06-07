@@ -8,3 +8,5 @@ This repository is about data structure and algorithm.
 - queue
 - priority queue
 - deque
+- stack
+
