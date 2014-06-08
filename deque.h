@@ -14,8 +14,8 @@
 
 #include "queue.h"
 
-QUEUE* deq_initialize(int init_size);
-void deq_deinitialize(QUEUE **pp_q);
+QUEUE* deq_create(int init_size);
+void deq_destroy(QUEUE **pp_q);
 int deq_is_full(QUEUE *p_q);
 int deq_is_empty(QUEUE *p_q);
 int deq_push_back(QUEUE *p_q, ELEMENT_TYPE a);

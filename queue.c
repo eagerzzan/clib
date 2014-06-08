@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-QUEUE* q_initialize(int init_size)
+QUEUE* q_create(int init_size)
 {
 	QUEUE *p_q;
 
@@ -32,7 +32,7 @@ QUEUE* q_initialize(int init_size)
 	return p_q;
 }
 
-void q_deinitialize(QUEUE **pp_q)
+void q_destroy(QUEUE **pp_q)
 {
 	if (pp_q && *pp_q)
 	{

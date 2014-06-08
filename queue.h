@@ -19,8 +19,8 @@ typedef struct _QUEUE
 	int size;
 } QUEUE;
 
-QUEUE* q_initialize(int init_size);
-void q_deinitialize(QUEUE **pp_q);
+QUEUE* q_create(int init_size);
+void q_destroy(QUEUE **pp_q);
 int q_is_full(QUEUE *p_q);
 int q_is_empty(QUEUE *p_q);
 int q_enqueue(QUEUE *p_q, ELEMENT_TYPE a);

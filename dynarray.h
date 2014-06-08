@@ -22,8 +22,8 @@ typedef struct _DYN_ARRAY
 	size_t size;
 } DYN_ARRAY;
 
-DYN_ARRAY* da_initialize(int init_size);
-void da_deinitialize(DYN_ARRAY **ppa);
+DYN_ARRAY* da_create(int init_size);
+void da_destroy(DYN_ARRAY **ppa);
 void da_insert(DYN_ARRAY *pa, int idx, ELEMENT_TYPE data);
 void da_delete(DYN_ARRAY *pa, int idx);
 

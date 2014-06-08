@@ -8,7 +8,7 @@
 
 #include "dynarray.h"
 
-DYN_ARRAY* da_initialize(int init_size)
+DYN_ARRAY* da_create(int init_size)
 {
 	DYN_ARRAY *pa;
 
@@ -22,7 +22,7 @@ DYN_ARRAY* da_initialize(int init_size)
 	return pa;
 }
 
-void da_deinitialize(DYN_ARRAY **ppa)
+void da_destroy(DYN_ARRAY **ppa)
 {
 	if (ppa && *ppa)
 	{

@@ -28,8 +28,8 @@ typedef struct _ARRAY_HEAP
 	int last;
 } ARRAY_HEAP;
 
-ARRAY_HEAP* prioq_initialize(int qsize);
-void prioq_deinitialize(ARRAY_HEAP **pp_prioq);
+ARRAY_HEAP* prioq_create(int qsize);
+void prioq_destroy(ARRAY_HEAP **pp_prioq);
 
 void prioq_push(ARRAY_HEAP *p_prioq, HEAP_NODE element);
 void prioq_pop(ARRAY_HEAP *p_prioq, HEAP_NODE *p_element);

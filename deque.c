@@ -8,18 +8,18 @@
 
 #include "deque.h"
 
-QUEUE* deq_initialize(int init_size)
+QUEUE* deq_create(int init_size)
 {
 	QUEUE *p_q;
 
-	p_q = q_initialize(init_size);
+	p_q = q_create(init_size);
 
 	return p_q;
 }
 
-void deq_deinitialize(QUEUE **pp_q)
+void deq_destroy(QUEUE **pp_q)
 {
-	q_deinitialize(pp_q);
+	q_destroy(pp_q);
 }
 
 int deq_is_full(QUEUE *p_q)

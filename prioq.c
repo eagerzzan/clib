@@ -8,7 +8,7 @@
 
 #include "prioq.h"
 
-ARRAY_HEAP* prioq_initialize(int init_size)
+ARRAY_HEAP* prioq_create(int init_size)
 {
 	ARRAY_HEAP *p_prioq = NULL;
 
@@ -25,7 +25,7 @@ ARRAY_HEAP* prioq_initialize(int init_size)
 	return p_prioq;
 }
 
-void prioq_deinitialize(ARRAY_HEAP **pp_prioq)
+void prioq_destroy(ARRAY_HEAP **pp_prioq)
 {
 	if (pp_prioq && *pp_prioq)
 	{
