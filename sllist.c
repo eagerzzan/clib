@@ -8,8 +8,9 @@
  * @email		makeitafridaynight@gmail.com
  ******************************************************************************/
 
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+
 #include "sllist.h"
 
 SLL_LIST* sll_create(void)
