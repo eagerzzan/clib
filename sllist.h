@@ -11,7 +11,7 @@
 #ifndef _SLLIST_H
 #define _SLLIST_H
 
-//#define DISABLE_CIRCULAR_LIST
+#define DISABLE_CIRCULAR_LIST
 
 #define ELEMENT_TYPE int
 
@@ -33,7 +33,10 @@ void sll_destroy(SLL_LIST **pp_list);
 SLL_NODE* sll_make_node(ELEMENT_TYPE data);
 
 void sll_insert(SLL_LIST *p_list, SLL_NODE *p_prev, SLL_NODE *p_new);
+void sll_insert_back(SLL_LIST *p_list, SLL_NODE *p_new);
 void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev);
+
+int sll_is_lastnode(SLL_NODE *p_node);
 
 void sll_print_list(SLL_LIST *p_list);
 

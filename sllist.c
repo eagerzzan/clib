@@ -45,11 +45,12 @@ void sll_destroy(SLL_LIST **pp_list)
 			p_cur = p_tmp;
 			p_tmp = p_cur->p_next;
 
-			printf("Release : %p\n", p_cur);
+			//printf("Release : %p\n", p_cur);
 			free(p_cur);
 		}
 
-		printf("Release : %p\n", (*pp_list)->p_head);
+		//printf("Release : %p\n", (*pp_list)->p_head);
+
 		free((*pp_list)->p_head);
 		(*pp_list)->p_head = NULL;
 	}
@@ -79,9 +80,9 @@ void sll_insert(SLL_LIST *p_list, SLL_NODE *p_prev, SLL_NODE *p_new)
 {
 	SLL_NODE *p_tmp = NULL;
 
-	if (p_list == NULL || p_prev == NULL || p_new == NULL) return;
+	if (p_list == NULL || p_new == NULL) return;
 
-	printf("Insert: %p, %d\n", p_new, p_new->data);
+	//printf("Insert: %p, %d\n", p_new, p_new->data);
 
 	if (p_list->p_head == NULL)
 		p_list->p_head = p_new;
@@ -89,6 +90,36 @@ void sll_insert(SLL_LIST *p_list, SLL_NODE *p_prev, SLL_NODE *p_new)
 	{
 		p_new->p_next = p_prev->p_next;
 		p_prev->p_next = p_new;
+	}
+
+	p_list->cnt++;
+}
+
+void sll_insert_back(SLL_LIST *p_list, SLL_NODE *p_new)
+{
+	SLL_NODE *p_tmp = NULL;
+
+	if (p_list == NULL || p_new == NULL) return;
+
+	//printf("Insert: %p, %d\n", p_new, p_new->data);
+
+	if (p_list->p_head == NULL)
+		p_list->p_head = p_new;
+	else
+	{
+		p_tmp = p_list->p_head;
+
+#ifdef DISABLE_CIRCULAR_LIST
+		while (p_tmp->p_next)
+#else
+		while (p_tmp->p_next != p_list->p_head)
+#endif
+		{
+			p_tmp = p_tmp->p_next;
+		}
+
+		p_new->p_next = p_tmp->p_next;
+		p_tmp->p_next = p_new;
 	}
 
 	p_list->cnt++;
@@ -128,10 +159,21 @@ void sll_delete(SLL_LIST *p_list, SLL_NODE *p_prev)
 	}
 #endif
 
-	printf("Delete : %p\n", p_del);
+	//printf("Delete : %p\n", p_del);
 	free(p_del);
 
 	p_list->cnt--;
+}
+
+int sll_is_lastnode(SLL_NODE *p_node)
+{
+#ifdef DISABLE_CIRCULAR_LIST
+	if (p_node->p_next == NULL) return 1;
+	else return 0;
+#else
+	if (p_node->p_next == p_list->p_head) return 1;
+	else return 0;
+#endif
 }
 
 void sll_print_list(SLL_LIST *p_list)
