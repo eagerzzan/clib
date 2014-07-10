@@ -6,6 +6,7 @@
 
 #include "sort.h"
 #include "sllist.h"
+#include "search.h"
 
 void create_tests(ELEMENT_TYPE **ppa, int num, int mode)
 {
@@ -141,6 +142,7 @@ int main(int argc, char **argv)
 
 		if (sort < 11)
 		{
+			#if 0
 			for (i = 0; i < length; ++i)
 			{
 				printf("%d ", pa[i]);
@@ -148,11 +150,18 @@ int main(int argc, char **argv)
 					printf("\n");
 			}
 			printf("\n");
+			#endif
 
 			printf("Elapsed time : %ld\n",
 					(tv2.tv_sec * 1000000 + tv2.tv_usec)
 					- (tv1.tv_sec * 1000000 + tv1.tv_usec));
 		}
+
+		printf("Enter number to find: ");
+		scanf("%d", &tmp);
+
+		printf("Fibonacci search : %d\n",
+				fibonacci_search(pa, length, tmp, is_same));
 
 		if(pa) free(pa);
 	}
