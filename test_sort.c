@@ -7,6 +7,7 @@
 #include "sort.h"
 #include "sllist.h"
 #include "search.h"
+#include "bst.h"
 
 void create_tests(ELEMENT_TYPE **ppa, int num, int mode)
 {
@@ -76,6 +77,39 @@ void sort_test_all(ELEMENT_TYPE *pa, int num, int digits)
 	if (p_tmp) free(p_tmp);
 }
 
+void test_bst(void)
+{
+	BT_ROOT *p_root;
+
+	p_root = bst_create();
+
+	bst_insert(p_root, 10);
+
+	bst_insert(p_root, 12);
+
+	bst_insert(p_root, 5);
+
+	bst_insert(p_root, 4);
+
+	bst_insert(p_root, 9);
+
+	bst_insert(p_root, 6);
+
+	bst_insert(p_root, 7);
+
+	bst_preorder(p_root->p_node);
+
+	printf("before delete\n");
+	bst_delete(p_root, 5);
+
+	printf("after delete\n");
+	bst_preorder(p_root->p_node);
+
+	printf("search : %p\n", bst_search(p_root->p_node, 9));
+
+	bst_destroy(&p_root);
+}
+
 int main(int argc, char **argv)
 {
 	struct timeval tv1, tv2;
@@ -84,8 +118,10 @@ int main(int argc, char **argv)
 	//ELEMENT_TYPE a[] = {27, 106, 35, 92, 6, 10};
 	ELEMENT_TYPE *pa = NULL;
 	int length = 1000000;
-	int mode, sort, tmp, digits;
-	int i;
+	int mode, sort, search, tmp, digits;
+	int i, j;
+
+	test_bst();
 
 	mode = 0;
 
@@ -142,7 +178,7 @@ int main(int argc, char **argv)
 
 		if (sort < 11)
 		{
-			#if 0
+			#if 1
 			for (i = 0; i < length; ++i)
 			{
 				printf("%d ", pa[i]);
@@ -160,8 +196,29 @@ int main(int argc, char **argv)
 		printf("Enter number to find: ");
 		scanf("%d", &tmp);
 
-		printf("Fibonacci search : %d\n",
-				fibonacci_search(pa, length, tmp, is_same));
+		printf("Enter a kind of search(0:sequential search, 1:fibonacci search, "
+				"2:binary search, 3:binary tree search, 4:balanced tree search, "
+				"5:radix search, "
+				": ");
+		scanf("%d", &search);
+
+		j = -1;
+		switch (search)
+		{
+			case 0 :
+				j = sequential_search(pa, length, tmp, is_same);
+				break;
+			case 1 :
+				j = fibonacci_search(pa, length, tmp, is_same);
+				break;
+			case 2 :
+				j = binary_search(pa, length, tmp, is_same);
+				break;
+			default :
+				break;
+		}
+
+		printf("Search result : %d\n", j);
 
 		if(pa) free(pa);
 	}

@@ -26,6 +26,14 @@ int fibonacci_search(
 		ELEMENT_TYPE key,
 		int (*is_same)(const ELEMENT_TYPE, const ELEMENT_TYPE)
 		);
+
+int binary_search(
+		ELEMENT_TYPE a[],
+		int n,
+		ELEMENT_TYPE key,
+		int (*is_same)(const ELEMENT_TYPE, const ELEMENT_TYPE)
+		);
+
 #endif
 
 /* end of file */

@@ -11,22 +11,36 @@
 
 #define ELEMENT_TYPE int
 
-#ifndef BST_MAX_HEIGHT
-#define BST_MAX_HEIGHT 32
+#ifndef BT_MAX_HEIGHT
+#define BT_MAX_HEIGHT 32
 #endif
 
-typedef struct _BST_NODE
+typedef struct _BT_NODE
 {
-	struct _BST_NODE *p_left;
-	struct _BST_NODE *p_right;
-	ELEMENT_TYPE data;
-} BST_NODE;
+	int key;
+	struct _BT_NODE *p_left;
+	struct _BT_NODE *p_right;
+} BT_NODE;
 
-typedef struct _BST_ROOT
+typedef struct _BT_ROOT
 {
-	struct _BST_NODE *p_node;
+	struct _BT_NODE *p_node;
 	int count;
-} BST_ROOT;
+} BT_ROOT;
+
+BT_ROOT* bst_create(void);
+
+void bst_destroy(BT_ROOT **pp_root);
+
+BT_NODE* bst_make_node(int key);
+
+void bst_insert(BT_ROOT *p_root, int key);
+
+void bst_delete(BT_ROOT *p_root, int key);
+
+void bst_preorder(BT_NODE *p_node);
+
+BT_NODE* bst_search(BT_NODE *p_node, int key);
 
 #endif
 

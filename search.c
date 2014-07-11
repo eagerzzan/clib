@@ -29,7 +29,7 @@ int sequential_search(
 {
 	int i;
 
-	if (a == NULL) return;
+	if (a == NULL) return -1;
 
 	for (i = 0; i < n; i++)
 	{
@@ -103,9 +103,33 @@ int fibonacci_search(
 	return -1;
 }
 
-void binary_search()
+int binary_search(
+		ELEMENT_TYPE a[],
+		int n,
+		ELEMENT_TYPE key,
+		int (*is_same)(const ELEMENT_TYPE, const ELEMENT_TYPE)
+		)
 {
+	int first, mid, last;
+	int c;
 
+	first = 0;
+	last = n - 1;
+
+	while (first <= last)
+	{
+		mid = (first + last) / 2;
+
+		c = is_same(a[mid], key);
+		if (c > 0)
+			last = mid - 1;
+		else if (c < 0)
+			first = mid + 1;
+		else
+			return mid;
+	}
+
+	return -1;
 }
 
 void binary_tree_search()
@@ -114,11 +138,6 @@ void binary_tree_search()
 }
 
 void balanced_tree_search()
-{
-
-}
-
-void bubble_search()
 {
 
 }
