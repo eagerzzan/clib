@@ -10,6 +10,7 @@
 #include <limits.h>
 
 #include "search.h"
+#include "bst.h"
 
 int is_same(const ELEMENT_TYPE src, const ELEMENT_TYPE dst)
 {
@@ -132,9 +133,25 @@ int binary_search(
 	return -1;
 }
 
-void binary_tree_search()
+int binary_tree_search(
+		ELEMENT_TYPE a[],
+		int n,
+		ELEMENT_TYPE key
+		)
 {
+	BT_ROOT *p_root;
+	int i;
 
+	p_root = bst_create();
+
+	for (i = 0; i < n; i++)
+		bst_insert(p_root, a[i]);
+
+	printf("search : %p\n", bst_search(p_root->p_node, key));
+
+	bst_destroy(&p_root);
+
+	return 0;
 }
 
 void balanced_tree_search()

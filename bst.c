@@ -111,6 +111,8 @@ BT_NODE* _bst_delete_recursively(BT_NODE *p_node, int key)
 			p_node = p_node->p_right;
 		else if (p_node->p_left)
 			p_node = p_node->p_left;
+		else
+			p_node = NULL;
 
 		printf("release : %p\n", p_tmp);
 		free(p_tmp);
@@ -119,11 +121,11 @@ BT_NODE* _bst_delete_recursively(BT_NODE *p_node, int key)
 	return p_node;
 }
 
-void bst_delete(BT_ROOT *p_root, int key)
+BT_NODE* bst_delete(BT_ROOT *p_root, int key)
 {
-	if (p_root == NULL || p_root->p_node == NULL) return;
+	if (p_root == NULL || p_root->p_node == NULL) return NULL;
 
-	p_root->p_node = _bst_delete_recursively(p_root->p_node, key);
+	return _bst_delete_recursively(p_root->p_node, key);
 }
 
 void bst_preorder(BT_NODE *p_node)

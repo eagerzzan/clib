@@ -8,6 +8,7 @@
 #include "sllist.h"
 #include "search.h"
 #include "bst.h"
+#include "avl.h"
 
 void create_tests(ELEMENT_TYPE **ppa, int num, int mode)
 {
@@ -100,14 +101,130 @@ void test_bst(void)
 	bst_preorder(p_root->p_node);
 
 	printf("before delete\n");
-	bst_delete(p_root, 5);
+	bst_delete(p_root, 4);
 
 	printf("after delete\n");
 	bst_preorder(p_root->p_node);
 
+	bst_insert(p_root, 4);
+	bst_insert(p_root, 3);
 	printf("search : %p\n", bst_search(p_root->p_node, 9));
+	bst_preorder(p_root->p_node);
 
 	bst_destroy(&p_root);
+}
+
+void test_avl(void)
+{
+	AVL_ROOT *p_root;
+	int i;
+
+	p_root = avl_create();
+
+#if 1
+#if 1
+	i = 30;
+	avl_insert(p_root, i);
+	printf("insert %d\n", i);
+	avl_preorder(p_root->p_node);
+
+	i = 40;
+	avl_insert(p_root, i);
+	printf("insert %d\n", i);
+	avl_preorder(p_root->p_node);
+
+	i = 34;
+	avl_insert(p_root, i);
+	printf("insert %d\n", i);
+	avl_preorder(p_root->p_node);
+
+	i = 36;
+	avl_insert(p_root, i);
+	printf("insert %d\n", i);
+	avl_preorder(p_root->p_node);
+
+	i = 30;
+	avl_delete(p_root, i);
+	printf("delete %d\n", i);
+	avl_preorder(p_root->p_node);
+#else
+	for (i = 20; i > 0; i--)
+	{
+		avl_insert(p_root, i);
+		printf("insert %d\n", i);
+		avl_preorder(p_root->p_node);
+	}
+#endif
+#else
+	avl_insert(p_root, 10);
+	printf("insert 10\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 4);
+	printf("insert 4\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 12);
+	printf("insert 12\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 3);
+	printf("insert 3\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 6);
+	printf("insert 6\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 13);
+	printf("insert 13\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 11);
+	printf("insert 11\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 5);
+	printf("insert 5\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 7);
+	printf("insert 7\n");
+	avl_preorder(p_root->p_node);
+
+	avl_insert(p_root, 9);
+	printf("insert 9\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 4);
+	printf("after delete  4\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 6);
+	printf("after delete 6\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 3);
+	printf("delete 3\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 5);
+	printf("delete 5\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 9);
+	printf("delete 9\n");
+	avl_preorder(p_root->p_node);
+
+	avl_delete(p_root, 7);
+	printf("delete 7\n");
+	avl_preorder(p_root->p_node);
+
+	printf("search : %p\n", avl_search(p_root->p_node, 9));
+	avl_preorder(p_root->p_node);
+#endif
+
+	avl_destroy(&p_root);
 }
 
 int main(int argc, char **argv)
@@ -121,7 +238,9 @@ int main(int argc, char **argv)
 	int mode, sort, search, tmp, digits;
 	int i, j;
 
-	test_bst();
+//	test_bst();
+//	printf("##############################\n");
+	test_avl();
 
 	mode = 0;
 
@@ -154,6 +273,24 @@ int main(int argc, char **argv)
 		}	
 
 		create_tests(&pa, length, mode); /* 0 : rand, 1 : seq, 2 : reverse */
+
+		AVL_ROOT *p_root;
+
+		p_root = avl_create();
+
+		for (i = 0; i < length; i++)
+			avl_insert(p_root, pa[i]);
+
+		avl_preorder(p_root->p_node);
+		printf("#########################\n");
+
+		for (i = 0; i < length; i++)
+			avl_delete(p_root, pa[i]);
+
+		printf("#########################\n");
+		avl_preorder(p_root->p_node);
+
+		avl_destroy(&p_root);
 
 		gettimeofday(&tv1, NULL);
 
@@ -198,7 +335,7 @@ int main(int argc, char **argv)
 
 		printf("Enter a kind of search(0:sequential search, 1:fibonacci search, "
 				"2:binary search, 3:binary tree search, 4:balanced tree search, "
-				"5:radix search, "
+				"5:radix search) "
 				": ");
 		scanf("%d", &search);
 
@@ -214,6 +351,8 @@ int main(int argc, char **argv)
 			case 2 :
 				j = binary_search(pa, length, tmp, is_same);
 				break;
+			case 3 :
+				j = binary_tree_search(pa, length, tmp);
 			default :
 				break;
 		}

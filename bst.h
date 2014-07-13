@@ -36,7 +36,7 @@ BT_NODE* bst_make_node(int key);
 
 void bst_insert(BT_ROOT *p_root, int key);
 
-void bst_delete(BT_ROOT *p_root, int key);
+BT_NODE* bst_delete(BT_ROOT *p_root, int key);
 
 void bst_preorder(BT_NODE *p_node);
 

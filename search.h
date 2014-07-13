@@ -34,6 +34,12 @@ int binary_search(
 		int (*is_same)(const ELEMENT_TYPE, const ELEMENT_TYPE)
 		);
 
+int binary_tree_search(
+		ELEMENT_TYPE a[],
+		int n,
+		ELEMENT_TYPE key
+		);
+
 #endif
 
 /* end of file */
