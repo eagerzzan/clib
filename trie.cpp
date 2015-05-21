@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -61,24 +62,27 @@ TrieNode* search(TrieNode &root, const string k)
 
 int main()
 {
-	const char *words[] = {"troy", "tray", "trie", "xray", "trim", "troyan"};
+	static const char *words[] = {"troy", "tray", "trie", "xray", "trim", "troyan"};
+
 	int s = sizeof(words) / sizeof(words[0]);
-	string str;
 
 	TrieNode root;
 
 	for (int i = 0; i < s; i++)
 	{
-		str = words[i];
-		insert(root, str);
+		if (words[i])
+		{
+			cout << "Words : " << words[i] << endl;
+			insert(root, string(words[i]));
+		}
 	}
 
 	insert(root, "");
 
 	for (int i = 0; i < s; i++)
 	{
-		str = words[i];
-		cout << "Search : " << search(root, str) << endl;
+		if (words[i])
+			cout << "Search : " << words[i] << ", result : " << search(root, string(words[i])) << endl;
 	}
 
 	cout << "TSearch : " << (search(root, "t") == NULL ? "Not Found" : "Found") << endl;
