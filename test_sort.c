@@ -10,9 +10,10 @@
 #include "bst.h"
 #include "avl.h"
 
-void create_tests(ELEMENT_TYPE **ppa, int num, int mode)
+void create_tests(ELEMENT_TYPE **ppa, int num, int mode, int digits)
 {
 	int i;
+	int max = pow(10, digits);
 
 	*ppa = (ELEMENT_TYPE *) malloc(sizeof(ELEMENT_TYPE) * num);
 
@@ -20,22 +21,41 @@ void create_tests(ELEMENT_TYPE **ppa, int num, int mode)
 	{
 		case 0 :
 			for (i = 0; i < num; i++)
-				(*ppa)[i] = rand() % num;
+				(*ppa)[i] = rand() % max;
 			break;
 
 		case 1 :
 			for (i = 0; i < num; i++)
-				(*ppa)[i] = i;	
+				(*ppa)[i] = i % max;	
 			break;
 
 		case 2 :
 			for (i = 0; i < num; i++)
-				(*ppa)[i] = num - i - 1;
+				(*ppa)[i] = (num - i - 1) % max;
 			break;
 
 		default :
 			break;
 	}
+}
+
+char* get_sort_name(int i)
+{
+	static char *sort_name[] = {
+		"quick sort",
+		"insertion sort",
+		"selection sort",
+		"exchange sort",
+		"bubble sort",
+		"heap sort",
+		"shell sort",
+		"merge sort",
+		"radix sort",
+		"counting sort",
+		"bucket sort"
+	};
+
+	return sort_name[i];
 }
 
 void sort_test_all(ELEMENT_TYPE *pa, int num, int digits)
@@ -70,7 +90,7 @@ void sort_test_all(ELEMENT_TYPE *pa, int num, int digits)
 
 		gettimeofday(&tv2, NULL);
 
-		printf("sort[%d] : %ld usec\n", i,
+		printf("sort[%d:%s] : %ld usec\n", i, get_sort_name(i),
 				(tv2.tv_sec * 1000000 + tv2.tv_usec)
 				- (tv1.tv_sec * 1000000 + tv1.tv_usec));
 	}
@@ -240,7 +260,7 @@ int main(int argc, char **argv)
 
 //	test_bst();
 //	printf("##############################\n");
-	test_avl();
+	//test_avl();
 
 	mode = 0;
 
@@ -264,16 +284,22 @@ int main(int argc, char **argv)
 
 		if (sort > 11) continue;
 
+#if 0
 		digits = 0;
 		tmp = length;
 		while (tmp)
 		{
 			tmp /= 10;
 			digits++;
-		}	
+		}
+#else
+		digits = 2;
+#endif
+		printf("Digits : %d\n", digits);
 
-		create_tests(&pa, length, mode); /* 0 : rand, 1 : seq, 2 : reverse */
+		create_tests(&pa, length, mode, digits); /* 0 : rand, 1 : seq, 2 : reverse */
 
+#if 0
 		AVL_ROOT *p_root;
 
 		p_root = avl_create();
@@ -291,6 +317,7 @@ int main(int argc, char **argv)
 		avl_preorder(p_root->p_node);
 
 		avl_destroy(&p_root);
+#endif
 
 		gettimeofday(&tv1, NULL);
 
@@ -315,7 +342,7 @@ int main(int argc, char **argv)
 
 		if (sort < 11)
 		{
-			#if 1
+			#if 1 // print sorted list
 			for (i = 0; i < length; ++i)
 			{
 				printf("%d ", pa[i]);
@@ -335,7 +362,7 @@ int main(int argc, char **argv)
 
 		printf("Enter a kind of search(0:sequential search, 1:fibonacci search, "
 				"2:binary search, 3:binary tree search, 4:balanced tree search, "
-				"5:radix search) "
+				"5:radix search, 6:interpolation search) "
 				": ");
 		scanf("%d", &search);
 
@@ -353,6 +380,10 @@ int main(int argc, char **argv)
 				break;
 			case 3 :
 				j = binary_tree_search(pa, length, tmp);
+				break;
+			case 6 :
+				j = interpolation_search(pa, length, tmp);
+				break;
 			default :
 				break;
 		}

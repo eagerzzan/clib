@@ -14,13 +14,20 @@
 #include "bheap.h"
 #include "sllist.h"
 
-static void _partition(ELEMENT_TYPE a[], int low, int high, int *pivot)
+static void swap(int *p_a, int *p_b)
+{
+	int tmp = *p_a;
+	*p_a = *p_b;
+	*p_b = tmp;
+}
+
+static int partition(ELEMENT_TYPE a[], int low, int high)
 {
 	ELEMENT_TYPE pivot_item;
 	ELEMENT_TYPE tmp;
 	int i, j;
 
-	if (a == NULL || pivot == NULL) return;
+	//if (a == NULL || pivot == NULL) return;
 
 	pivot_item = a[low];
 	j = low;
@@ -34,8 +41,10 @@ static void _partition(ELEMENT_TYPE a[], int low, int high, int *pivot)
 		}
 	}
 
-	*pivot = j;
-	tmp = a[low]; a[low] = a[*pivot]; a[*pivot] = tmp;
+	// tmp = a[low]; a[low] = a[*pivot]; a[*pivot] = tmp;
+	swap(&a[low], &a[j]);
+
+	return j;
 }
 
 void quicksort(ELEMENT_TYPE a[], int low, int high)
@@ -44,9 +53,9 @@ void quicksort(ELEMENT_TYPE a[], int low, int high)
 
 	if (high > low)
 	{
-		_partition(a, low, high, &pivot);
+		int pivot = partition(a, low, high);
 
-		quicksort(a, low, pivot);
+		quicksort(a, low, pivot - 1);
 		quicksort(a, pivot + 1, high);
 	}
 }
@@ -263,11 +272,37 @@ void radix_sort(ELEMENT_TYPE a[], int n, int ndigits)
 	}
 }
 
+#if 1
+void counting_sort(ELEMENT_TYPE a[], int n, int maxk)
+{
+	ELEMENT_TYPE b[n];
+	int counts[maxk + 1];
+
+	int i;
+
+	memset(counts, 0, sizeof(counts));
+
+	for (i = 0; i < n; i++)
+		counts[a[i]]++;
+
+	for (i = 1; i <= maxk; i++)
+		counts[i] += counts[i - 1];
+
+	for (i = 0; i < n; i++)
+	{
+		b[counts[a[i]] - 1] = a[i];
+		counts[a[i]]--;
+	}
+
+	memcpy(a, b, sizeof(b));
+}
+#else
 void counting_sort(ELEMENT_TYPE a[], int n, int maxk)
 {
 	int *counts;
 	ELEMENT_TYPE *b;
 	int tmp, total;
+	int output[n];
 
 	int i;
 
@@ -306,6 +341,7 @@ void counting_sort(ELEMENT_TYPE a[], int n, int maxk)
 	if (b) free(b);
 	if (counts) free(counts);
 }
+#endif
 
 void bucket_sort(ELEMENT_TYPE a[], int n, int maxk)
 {
