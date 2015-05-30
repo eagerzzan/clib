@@ -154,6 +154,31 @@ int binary_tree_search(
 	return 0;
 }
 
+int interpolation_search(ELEMENT_TYPE a[], int n, ELEMENT_TYPE key)
+{
+	int low, high, mid;
+
+	low = 0;
+	high = n - 1;
+
+	while (!(a[high] == a[low] || key < a[low] || a[high] < key))
+	{
+		mid = low + (key - a[low]) * ((high - low) / (a[high] - a[low]));
+
+		if (a[mid] < key)
+			low = mid + 1;
+		else if (key < a[mid])
+			high = mid - 1;
+		else
+			return mid;
+	}
+
+	if (key == a[low])
+		return low;
+	else
+		return -1;
+}
+
 void balanced_tree_search()
 {
 
