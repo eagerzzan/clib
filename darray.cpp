@@ -63,13 +63,27 @@ public :
 		array = new_array;
 	}
 
-	void insert_element(T value)
+	void insert_element(int idx, T value)
 	{
 		if (used == size)
 			resize(inc);
 
-		array[used] = value;
-		used++;
+		if (idx < used)
+		{
+			memmove(array + idx + 1, array + idx, (size - idx) * sizeof(T));
+			array[idx] = value;
+			used++;
+		}
+		else if (idx == used)
+		{
+			array[idx] = value;
+			used++;
+		}
+	}
+
+	void append(T value)
+	{
+		insert_element(used, value);
 	}
 
 	void delete_element(int idx)
@@ -102,10 +116,10 @@ int main()
 	DArray<int> darray(10);
 
 	for (int i = 0; i < 10; i++)
-		darray.insert_element(i);
+		darray.append(i);
 
-	darray.insert_element(29);
-	darray.insert_element(11);
+	darray.insert_element(5, 29);
+	darray.insert_element(5, 11);
 	darray[0] = 30;
 	darray.delete_element(9);
 	darray.delete_element(3);
