@@ -210,6 +210,7 @@ void test_stack(void)
 	s_destroy(&s);
 }
 
+/* test main */
 int main(int argc, char **argv)
 {
 	test_stack();
